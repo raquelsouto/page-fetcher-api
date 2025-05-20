@@ -1,6 +1,6 @@
 package com.page_fetcher_api.service;
 
-import com.page_fetcher_api.model.WebCrawler;
+import com.page_fetcher_api.model.CrawlerData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class WebCrawlerService {
 
-    public WebCrawler crawlTarget(String target) throws Exception {
+    public CrawlerData crawlTarget(String target) throws Exception {
         URI targetUri = new URI(target);
         String domain = extractDomain(targetUri);
 
@@ -44,7 +44,7 @@ public class WebCrawlerService {
             }
         }
 
-        return new WebCrawler(domain, new ArrayList<>(visited));
+        return new CrawlerData(domain, new ArrayList<>(visited));
     }
 
     //extracts the base domain from the URI

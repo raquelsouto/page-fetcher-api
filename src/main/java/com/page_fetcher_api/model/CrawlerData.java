@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WebCrawler {
+public class CrawlerData {
     private String domain;
     private List<String> pages;
 }

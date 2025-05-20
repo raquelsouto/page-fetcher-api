@@ -1,6 +1,6 @@
 package com.page_fetcher_api.controller;
 
-import com.page_fetcher_api.model.WebCrawler;
+import com.page_fetcher_api.model.CrawlerData;
 import com.page_fetcher_api.service.WebCrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class WebCrawlerController {
     @GetMapping("/pages")
     public ResponseEntity<?> getPagesResults(@RequestParam String target) throws Exception {
         try {
-            WebCrawler result = webCrawlerService.crawlTarget(target);
+            CrawlerData result = webCrawlerService.crawlTarget(target);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid URL or error during crawling.");
