@@ -6,19 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @RestController
 public class WebCrawlerController {
 
-    private final String URL = "https://filip-ph-johansson.github.io";
-
     @Autowired
     private WebCrawlerService webCrawlerService;
-
-    private WebCrawler pages = new WebCrawler();
 
     @GetMapping("/pages")
     public ResponseEntity<?> getPagesResults(@RequestParam String target) throws Exception {
