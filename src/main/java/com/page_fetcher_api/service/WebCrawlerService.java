@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.util.*;
 
+
 @Service
 public class WebCrawlerService {
 
@@ -19,6 +20,9 @@ public class WebCrawlerService {
 
         Set<String> visited = new LinkedHashSet<>();
         Queue<String> queue = new LinkedList<>();
+
+        //images
+        Set<String> foundImages = new HashSet<>();
 
         queue.add(normalizeUrl(domain, targetUri.getPath()));
 
@@ -34,9 +38,19 @@ public class WebCrawlerService {
                 Elements links = document.select("a[href]");
                 for (Element link : links) {
                     String absHref = link.attr("abs:href").split("#")[0];
-                    System.out.println(absHref);
+//                    System.out.println(absHref);
                     if (absHref.startsWith(domain) && !visited.contains(absHref) && !queue.contains(absHref)) {
                         queue.add(absHref);
+                    }
+                }
+
+                Elements images = document.select("img[src]");
+                for (Element image : images) {
+                    String imgUrl = image.attr("abs:src");
+//                    System.out.println("IMAGE: " + imgUrl);
+
+                    if (!foundImages.contains(imgUrl)) {
+                        foundImages.add(imgUrl);
                     }
                 }
             } catch (Exception e) {
@@ -44,7 +58,7 @@ public class WebCrawlerService {
             }
         }
 
-        return new CrawlerData(domain, new ArrayList<>(visited));
+        return new CrawlerData(domain, new ArrayList<>(visited), new ArrayList<>(foundImages));
     }
 
     //extracts the base domain from the URI

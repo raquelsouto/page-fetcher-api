@@ -12,4 +12,5 @@ import java.util.List;
 public class CrawlerData {
     private String domain;
     private List<String> pages;
+    private List<String> images;
 }
